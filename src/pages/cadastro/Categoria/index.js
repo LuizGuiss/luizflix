@@ -33,7 +33,9 @@ function CadastroCategoria() {
 
   useEffect(() => { //chama ele qnd um efeito colateral acontecer
     if(window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:8085/categorias'; 
+      const URL = window.location.hostname.includes('localhost') 
+        ? 'http://localhost:8085/categorias'
+        : 'https://luizflix.herokuapp.com/categorias'; 
       fetch(URL)
        .then(async (respostaDoServer) =>{
         if(respostaDoServer.ok) {
@@ -112,6 +114,11 @@ function CadastroCategoria() {
         </Button>
       </form>
       
+      {categorias.length === 0 && (
+        <div>
+          Loading...
+        </div>
+      )}
 
       <ul>
         {categorias.map((categoria, indice) => {
